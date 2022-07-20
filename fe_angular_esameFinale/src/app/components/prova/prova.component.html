@@ -1,36 +1,68 @@
 
 <div class="container">
   <table class="table table-bordered table-hover">
-    <!-- 1 riga -->
+    <!-- HEAD -->
     <thead class="table-light">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+      <tr><!-- riga -->
+        <th scope="col">id</th><!-- celle header -->
+        <th scope="col">email</th>
+        <th scope="col">first name</th>
+        <th scope="col">last name</th>
+        <th scope="col">avatar</th>
       </tr>
     </thead>
   
-    <!-- utte le altre -->
+    <!-- BODY -->
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
-      </tr>
+
+      <tr *ngFor="let item of users" >
+        <td>{{item.id}}</td>
+        <td>{{item.email}}</td>
+        <td>{{item.first_name}}</td>
+        <td>{{item.last_name}}</td>
+<!--         <td><img src="{{item.avatar}}"></td>
+ -->      </tr>
+      
     </tbody>
-  
   </table>
+
+
+
+
+
+
+        <label> Email </label>
+        <input #email placeholder="email"><br>
+        <label> First name </label>
+        <input #firstName placeholder="first name"><br>
+        <label> Last name </label>
+        <input #lastName placeholder="last name"><br>
+        <label> Avatar </label>
+        <input #avatar placeholder="avatar"><br>
+        <button type="button" (click)="addNewUser(email.value,firstName.value,lastName.value,avatar.value)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          save
+        </button>
+
+
+<!--         <!-- Modal -->
+<!-- <div *ngIf="missingData" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Dievi riempire tuti i campi per poter salvare
+      </div>
+    </div>
+  </div>
+</div>  -->
+
+
+<!-- <button type="button" (click)="goBack()">Go back</button>
+ -->
+
+
+
+
 </div>
