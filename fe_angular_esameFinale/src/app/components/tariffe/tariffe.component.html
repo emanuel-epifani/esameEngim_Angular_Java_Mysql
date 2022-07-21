@@ -31,16 +31,14 @@
 
 
 
-
-
-  <label> Nome corriere </label>
-  <input #nomeCorriere placeholder="Nome corriere"><br>
-  <label> Nome tariffa </label>
-  <input #nomeTariffa placeholder="Nome tariffa"><br>
-  <label> Peso max </label>
-  <input #pesoMax placeholder="Peso max"><br>
-  <label> Costo </label>
-  <input #costo placeholder="Costo"><br>
+  <label class="inputname"> Nome corriere </label>
+  <input class="inputValue"  #nomeCorriere placeholder="Nome corriere"><br>
+  <label class="inputname"> Nome tariffa </label>
+  <input class="inputValue" #nomeTariffa placeholder="Nome tariffa"><br>
+  <label class="inputname"> Peso max </label>
+  <input class="inputValue" #pesoMax placeholder="Peso max"><br>
+  <label class="inputname"> Costo </label>
+  <input class="inputValue" #costo placeholder="Costo"><br>
 
   <button type="button" (click)="addNewRate(
     nomeCorriere.value,

@@ -1,4 +1,4 @@
-package com.example.be_java_esamefinale.controller;
+package com.example.be_java_esamefinale;
 
 import com.example.be_java_esamefinale.models.Articolo;
 import com.example.be_java_esamefinale.models.Ordine;
@@ -7,46 +7,11 @@ import com.example.be_java_esamefinale.models.payloads.OrdineConPreventivo;
 import com.example.be_java_esamefinale.repository.ArticoliRepository;
 import com.example.be_java_esamefinale.repository.OrdiniRepository;
 import com.example.be_java_esamefinale.repository.TariffeRepository;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.annotation.Target;
 import java.util.ArrayList;
-import java.util.Collections;
 
-@CrossOrigin("*")
-@RestController
-public class Controller {
-
-    //-----------------------------------get semplici-------------------------------
-    @GetMapping("/articoli")
-    public static ArrayList<Articolo> getAllArticoli() {
-        return ArticoliRepository.getAllArticoli();
-    }
-
-    @GetMapping("/tariffe")
-    public static ArrayList<TariffaCorriere> getAllTariffe() {
-        return TariffeRepository.getAllTariffe();
-    }
-
-    @GetMapping("/ordini")
-    public static ArrayList<Ordine> getAllOrdini() {
-        return OrdiniRepository.getAllOrdini();
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
+public class GetOrderWithRateWrong {
 
     //-------------------------------------gia filtrate---------------------------
 
@@ -67,13 +32,12 @@ public class Controller {
                     migliorPreventivoPerQuestordine);
             //e lo aggiungo all'array
             elencoOrdiniConPreventivo.add(ordineConPreventivo);
-            }
+        }
         return  elencoOrdiniConPreventivo;
     }
 
     //----------------------metodi per filtrare il tutto-------
 
-    //1 richiamato
     public static TariffaCorriere getBetterRaceOfThisOrder(Ordine ordine) {
         //avendo l'id dell'ordine mi recupero tutti gli articoli associati
         ArrayList<Articolo> articoliDiQuestoOrdine = ArticoliRepository.getAllArticoliByOrder(ordine.getId());
@@ -84,7 +48,6 @@ public class Controller {
     }
 
 
-    //2 richiamato
     public static double summWeightsOfArticles(ArrayList<Articolo> articles) {
         double sumOfAllArticles = 0;
         for (Articolo weightArticles: articles) {
@@ -94,7 +57,6 @@ public class Controller {
     }
 
 
-    // 3 richiamato
     public static TariffaCorriere searchBetterRaceOfThisOrder(double pesoTotaleOrdine) {
 
         ArrayList<TariffaCorriere> tutteLeTariffe = TariffeRepository.getAllTariffe();
@@ -108,12 +70,15 @@ public class Controller {
         }
         //guardo tra tutte quelle valide quella con costo minore
         TariffaCorriere betterRate = tutteLeTariffeValide.get(0);
-        for (TariffaCorriere rate: tutteLeTariffeValide) {
+        for (TariffaCorriere rate: tutteLeTariffe) {
             if(betterRate.getCosto() > rate.getCosto() ) {
                 betterRate = rate;
             }
         }
         return betterRate;
-        }
+    }
+
+
+
 
 }
