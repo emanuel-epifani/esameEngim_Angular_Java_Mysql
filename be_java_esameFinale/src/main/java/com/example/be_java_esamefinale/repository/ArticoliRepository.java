@@ -17,59 +17,85 @@ import static java.sql.DriverManager.getConnection;
 public class ArticoliRepository {
 
 
-        public static ArrayList<Articolo> getAllArticoli(){
-            // creo una lista da restituire
-            ArrayList<Articolo> articoli = new ArrayList<>();
+    public static ArrayList<Articolo> getAllArticoli() {
+        // creo una lista da restituire
+        ArrayList<Articolo> articoli = new ArrayList<>();
 
-            try{
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            PreparedStatement stmt = conn.prepareStatement("select * from articoli");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                // creo una fermata con i dati del DB
+                Articolo articolo = new Articolo(
+                        rs.getInt("id"),
+                        rs.getString("codice"),
+                        rs.getString("descrizione"),
+                        rs.getDouble("peso"));
+
+                // aggiungo alla lista
+                articoli.add(articolo);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //restituisco la lista
+        return articoli;
+    }
+
+    public static ArrayList<Articolo> getAllArticoliByOrder(int id) {
+
+        ArrayList<Integer> idOfArticolsOfOrder = new ArrayList<>();
+        ArrayList<Articolo> articolsOfOrder = new ArrayList<>();
+
+        //mi ricavo tutti gli id degli articoli di un singolo ordine
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            PreparedStatement stmt = conn.prepareStatement("select * from voce where id_ordine = ? ");
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            //mi ricavo tutti gli id degli articoli di quell'ordine
+            while (rs.next()) {
+                id = rs.getInt("id_articolo");
+                idOfArticolsOfOrder.add(id);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        //ora che ho l'array con gli id di tutti gli articoli.. x ogni id mi recupero l'articolo (e lo aggiungo ad un array x poi sommarli tutti)
+        for (int id_article: idOfArticolsOfOrder) {
+            try {
                 Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-                PreparedStatement stmt = conn.prepareStatement("select * from articoli");
+                PreparedStatement stmt = conn.prepareStatement("select * from articoli where id = ? ");
+                stmt.setInt(1, id_article);
                 ResultSet rs = stmt.executeQuery();
 
-                while(rs.next()){
-
+                while (rs.next()) {
                     // creo una fermata con i dati del DB
                     Articolo articolo = new Articolo(
                             rs.getInt("id"),
                             rs.getString("codice"),
                             rs.getString("descrizione"),
-                            rs.getDouble("peso") );
+                            rs.getDouble("peso"));
 
                     // aggiungo alla lista
-                    articoli.add(articolo);
+                    articolsOfOrder.add(articolo);
                 }
 
-            } catch (SQLException e) {
+            } catch(SQLException e) {
                 e.printStackTrace();
             }
-            //restituisco la lista
-            return articoli;
         }
-//
-//        public static ArrayList<Articolo> getAllArticoliByOrder(Ordine ordine) {
-//
-//
-//            // dichiaro l'oggetto da restituire
-//            Fermata fermata = null;
-//            try{
-//                Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-//                PreparedStatement stmt = conn.prepareStatement("select id,nome,zona from fermate where id = ? ");
-//                stmt.setInt(1,numero_fermata);
-//                ResultSet rs = stmt.executeQuery();
-//
-//                while(rs.next()){
-//                    // istanzio l'oggetto da restituire preso dal DB
-//                    fermata = new Fermata(rs.getInt("id"),rs.getString("nome"),rs.getString("zona"));
-//                }
-//
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//            //restituisco la Fermata
-//            return fermata;
-//
-//
-//        }
+
+        //restituisco la Fermata
+        return articolsOfOrder;
+
+        }
 
 
 }
