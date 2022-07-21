@@ -34,6 +34,7 @@ public class EsempioRepository {
 
 
 
+
     //select CON prepare statement (con variabile al suo interno)
 
 //        private static Fermata getFermataById(int numero_fermata) {
