@@ -12,30 +12,32 @@
         <th scope="col">nome_tariffa</th>
         <th scope="col">peso_max</th>
         <th scope="col">costo</th>
+        <th scope="col"></th>
       </tr>
     </thead>
 
     <!-- BODY -->
     <tbody>
-      <tr *ngFor="let item of tariffe" >
+      <tr *ngFor="let item of tariffe;" >
         <td>{{item.id}}</td>
         <td>{{item.nome_corriere}}</td>
         <td>{{item.nome_tariffa}}</td>
         <td>{{item.peso_max}}</td>
         <td>{{item.costo}}</td>
+        <td> <button (click)="deleteOneRate(item)">Elimina tariffa</button> </td>
      </tr>
 
     </tbody>
   </table>
 
-  <label class="inputname"> Nome corriere </label>
-  <input class="inputValue"  #nomeCorriere placeholder="Nome corriere"><br>
-  <label class="inputname"> Nome tariffa </label>
-  <input class="inputValue" #nomeTariffa placeholder="Nome tariffa"><br>
-  <label class="inputname"> Peso max </label>
-  <input class="inputValue" #pesoMax placeholder="Peso max"><br>
-  <label class="inputname"> Costo </label>
-  <input class="inputValue" #costo placeholder="Costo"><br>
+  <label > Nome corriere </label>
+  <input #nomeCorriere placeholder="Nome corriere"><br>
+  <label > Nome tariffa </label>
+  <input #nomeTariffa placeholder="Nome tariffa"><br>
+  <label > Peso max </label>
+  <input type="number" #pesoMax placeholder="Peso max"><br>
+  <label > Costo </label>
+  <input type="number" #costo placeholder="Costo"><br>
 
   <button type="button" (click)="addNewRate(
     nomeCorriere.value,

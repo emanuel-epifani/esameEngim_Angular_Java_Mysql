@@ -8,7 +8,7 @@ import { TariffaCorriere } from 'src/app/models/tariffa-corriere';
 })
 export class TariffeComponent implements OnInit {
   tariffe: TariffaCorriere[] = [];
-  missingData: boolean = false;
+  missingData: boolean = true;
 
   constructor() { }
 
@@ -38,6 +38,7 @@ export class TariffeComponent implements OnInit {
     pesoMax: number,
     costo: number
     ) {
+      console.log(nomeCorriere, nomeTariffa, pesoMax, costo);
 
       let rate: TariffaCorriere = {
       id: this.tariffe.length+1,
@@ -50,7 +51,8 @@ export class TariffeComponent implements OnInit {
 
       this.missingData = false;
       this.tariffe.push(rate);
-      console.log(this.tariffe);
+      console.log(rate);
+      //console.log(this.tariffe);
 
     } else {
       this.missingData = true;
@@ -58,6 +60,11 @@ export class TariffeComponent implements OnInit {
 
     }
 
+  }
+
+  deleteOneRate(item: TariffaCorriere) {
+    const indexToRemove = this.tariffe.indexOf(item);
+    this.tariffe.splice(indexToRemove, 1);
   }
 
 
