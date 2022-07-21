@@ -7,6 +7,7 @@ import com.example.be_java_esamefinale.models.payloads.OrdineConPreventivo;
 import com.example.be_java_esamefinale.repository.ArticoliRepository;
 import com.example.be_java_esamefinale.repository.OrdiniRepository;
 import com.example.be_java_esamefinale.repository.TariffeRepository;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +15,7 @@ import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Collections;
 
+@CrossOrigin("*")
 @RestController
 public class Controller {
 
@@ -30,9 +32,11 @@ public class Controller {
 
     @GetMapping("/ordini")
     public static ArrayList<Ordine> getAllOrdini() {
-        //prendo tutti gli ordini
         return OrdiniRepository.getAllOrdini();
     }
+
+    //-------------------------------------gia filtrate---------------------------
+
 
     @GetMapping("/ordinConPreventivo")
     public static ArrayList<OrdineConPreventivo> getAllOrderWithTheirBetterRate() {
@@ -55,10 +59,8 @@ public class Controller {
         return  elencoOrdiniConPreventivo;
     }
 
+    //----------------------metodi per filtrare il tutto-------
 
-    //-------------------------------------gia filtrate---------------------------
-
-    @GetMapping("/articoliOrdine")
     public static TariffaCorriere getBetterRaceOfThisOrder(Ordine ordine) {
         //avendo l'id dell'ordine mi recupero tutti gli articoli associati
         ArrayList<Articolo> articoliDiQuestoOrdine = ArticoliRepository.getAllArticoliByOrder(ordine.getId());
@@ -89,10 +91,8 @@ public class Controller {
                 tutteLeTariffeValide.add(rate);
             }
         }
-
         //guardo tra tutte quelle valide quella con costo minore
         TariffaCorriere betterRate = tutteLeTariffeValide.get(0);
-
         for (TariffaCorriere rate: tutteLeTariffe) {
             if(betterRate.getCosto() > rate.getCosto() ) {
                 betterRate = rate;

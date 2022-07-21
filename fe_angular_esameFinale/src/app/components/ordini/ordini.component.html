@@ -1,1 +1,31 @@
-<p>ordini works!</p>
+<div class="container">
+  <p class="text-center" >Elenco ORDINI</p>
+
+  <table class="table table-bordered table-hover">
+    <!-- HEAD -->
+    <thead class="table-light">
+      <tr><!-- riga -->
+        <th scope="col">id</th><!-- celle header -->
+        <th scope="col">numero</th>
+        <th scope="col">data</th>
+        <th scope="col">miglior corriere</th>
+      </tr>
+    </thead>
+
+
+    <!-- BODY -->
+    <tbody>
+      <tr *ngFor="let item of ordini" >
+        <td>{{item.id}}</td>
+        <td>{{item.numero}}</td>
+        <td>{{item.data}}</td>
+        <td>€{{item.preventivo_migliore.costo}} {{item.preventivo_migliore.nome_corriere}} {{item.preventivo_migliore.nome_tariffa}}</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+</div>
+
+

@@ -4,5 +4,5 @@ export interface Ordine {
   id: number,
   numero: number,
   data: string,
-  tariffaMigliore: TariffaCorriere
+  preventivo_migliore: TariffaCorriere
 }

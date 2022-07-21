@@ -1,1 +1,77 @@
-<p>tariffe works!</p>
+<div class="container">
+  <p class="text-center" >Elenco TARIFFE</p>
+
+  <table class="table table-bordered table-hover">
+    <!-- HEAD -->
+    <thead class="table-light">
+      <tr><!-- riga -->
+        <th scope="col">id</th><!-- celle header -->
+        <th scope="col">nome_corriere</th>
+        <th scope="col">nome_tariffa</th>
+        <th scope="col">peso_max</th>
+        <th scope="col">costo</th>
+      </tr>
+    </thead>
+
+
+    <!-- BODY -->
+    <tbody>
+      <tr *ngFor="let item of tariffe" >
+        <td>{{item.id}}</td>
+        <td>{{item.nome_corriere}}</td>
+        <td>{{item.nome_tariffa}}</td>
+        <td>{{item.peso_max}}</td>
+        <td>{{item.costo}}</td>
+     </tr>
+
+    </tbody>
+  </table>
+
+
+
+
+
+
+
+  <label> Nome corriere </label>
+  <input #nomeCorriere placeholder="Nome corriere"><br>
+  <label> Nome tariffa </label>
+  <input #nomeTariffa placeholder="Nome tariffa"><br>
+  <label> Peso max </label>
+  <input #pesoMax placeholder="Peso max"><br>
+  <label> Costo </label>
+  <input #costo placeholder="Costo"><br>
+
+  <button type="button" (click)="addNewRate(
+    nomeCorriere.value,
+    nomeTariffa.value,
+    pesoMax.valueAsNumber,
+    costo.valueAsNumber)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    save
+  </button>
+
+
+
+<!--   MODALE
+
+<div *ngIf="missingData" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" >
+<div class="modal-content">
+<div class="modal-header">
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+  Dievi riempire tuti i campi per poter salvare
+</div>
+</div>
+</div>
+</div> -->
+
+
+<!-- <button type="button" (click)="goBack()">Go back</button>
+ -->
+
+
+
+</div>
+
