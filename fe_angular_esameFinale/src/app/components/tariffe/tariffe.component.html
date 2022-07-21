@@ -1,4 +1,6 @@
 <div class="container">
+
+
   <p class="text-center" >Elenco TARIFFE</p>
 
   <table class="table table-bordered table-hover">
@@ -13,7 +15,6 @@
       </tr>
     </thead>
 
-
     <!-- BODY -->
     <tbody>
       <tr *ngFor="let item of tariffe" >
@@ -26,10 +27,6 @@
 
     </tbody>
   </table>
-
-
-
-
 
   <label class="inputname"> Nome corriere </label>
   <input class="inputValue"  #nomeCorriere placeholder="Nome corriere"><br>
@@ -47,6 +44,8 @@
     costo.valueAsNumber)" data-bs-toggle="modal" data-bs-target="#exampleModal">
     save
   </button>
+
+
 
 
 
