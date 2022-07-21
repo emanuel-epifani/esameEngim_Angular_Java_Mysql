@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.annotation.Target;
 import java.util.ArrayList;
+import java.util.Collections;
 
 @RestController
 public class Controller {
@@ -29,26 +30,43 @@ public class Controller {
 
     @GetMapping("/ordini")
     public static ArrayList<Ordine> getAllOrdini() {
+        //prendo tutti gli ordini
         return OrdiniRepository.getAllOrdini();
     }
 
+    @GetMapping("/ordinConPreventivo")
+    public static ArrayList<OrdineConPreventivo> getAllOrderWithTheirBetterRate() {
+        ArrayList elencoOrdiniConPreventivo = new ArrayList();
+        //prendo tutti gli ordini
+        ArrayList<Ordine> ordini = OrdiniRepository.getAllOrdini();
+        //per ogni ordine mi trovo la tariffa migliore
+        for (Ordine ordine: ordini) {
+            //mi cerco il preventivo migliore
+            TariffaCorriere migliorPreventivoPerQuestordine = getBetterRaceOfThisOrder(ordine);
+            //creo l'oggetta aggiungendoci il preventivo
+            OrdineConPreventivo ordineConPreventivo = new OrdineConPreventivo(
+                    ordine.getId(),
+                    ordine.getNumero(),
+                    ordine.getData(),
+                    migliorPreventivoPerQuestordine);
+            //e lo aggiungo all'array
+            elencoOrdiniConPreventivo.add(ordineConPreventivo);
+            }
+        return  elencoOrdiniConPreventivo;
+    }
 
 
     //-------------------------------------gia filtrate---------------------------
 
     @GetMapping("/articoliOrdine")
-    public static ArrayList<OrdineConPreventivo> getBetterRaceOfThisOrder(Ordine ordine) {
+    public static TariffaCorriere getBetterRaceOfThisOrder(Ordine ordine) {
         //avendo l'id dell'ordine mi recupero tutti gli articoli associati
         ArrayList<Articolo> articoliDiQuestoOrdine = ArticoliRepository.getAllArticoliByOrder(ordine.getId());
         //una volta ottenuti tutti gli articoli mi calcolo il totale del peso dell'ordina
         double totalePesoOrdine = summWeightsOfArticles(articoliDiQuestoOrdine);
         //mi controllo fra tutti qual'è il preventivo migliore per questo ordine
-        TariffaCorriere preventivomigliore = ;
+        return searchBetterRaceOfThisOrder(totalePesoOrdine);
     }
-
-
-
-
 
 
     public static double summWeightsOfArticles(ArrayList<Articolo> articles) {
@@ -59,41 +77,29 @@ public class Controller {
         return sumOfAllArticles;
     }
 
-    public static TariffaCorriere searchBetterRaceOfThisOrder(double pesoOrdine) {
+
+    public static TariffaCorriere searchBetterRaceOfThisOrder(double pesoTotaleOrdine) {
+
         ArrayList<TariffaCorriere> tutteLeTariffe = TariffeRepository.getAllTariffe();
         ArrayList<TariffaCorriere> tutteLeTariffeValide = new ArrayList<>();
-        ArrayList<Integer> tmpTariffeValidePrezzo = new ArrayList<>();
 
         //mi recupero tutte le tariffe valide (cioè che il peso ci sta)
         for (TariffaCorriere rate: tutteLeTariffe) {
-            if(pesoOrdine < rate.getPeso_max()){
+            if(pesoTotaleOrdine < rate.getPeso_max()){
                 tutteLeTariffeValide.add(rate);
             }
         }
 
-        //cerco quella con costo minore
-//        for (TariffaCorriere validRate: tutteLeTariffeValide) {
-//
-//            TariffaCorriere min = tutteLeTariffeValide.get(0);
-//
-//            for(int i=1; i<tutteLeTariffeValide.size(); i++) {
-//
-//                if(min.getCosto() > tutteLeTariffeValide[i]. ) {
-//                    min = array[i];
-//                }
-//            }
-//
-//        }
+        //guardo tra tutte quelle valide quella con costo minore
+        TariffaCorriere betterRate = tutteLeTariffeValide.get(0);
 
-
-
-        return min;
-
-
+        for (TariffaCorriere rate: tutteLeTariffe) {
+            if(betterRate.getCosto() > rate.getCosto() ) {
+                betterRate = rate;
+            }
         }
-
-        //la tariffa migliore
-
+        return betterRate;
+        }
 
 
 
