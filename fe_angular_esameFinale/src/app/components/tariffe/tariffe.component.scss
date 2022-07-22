@@ -1,8 +1,28 @@
 .container {
   margin-top: 100px;
+  margin-bottom: 100px;
   }
 
 .form{
   display: flex;
   justify-content: center;
+}
+
+
+
+
+.formContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.formDiv {
+  padding: 50px;
+  border: 1px solid black;
+  border-radius: 7px;
+}
+
+.rowInput {
+  display: flex;
+  justify-content:end;
 }

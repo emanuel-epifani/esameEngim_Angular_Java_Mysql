@@ -30,7 +30,47 @@
     </tbody>
   </table>
 
-  <label > Nome corriere </label>
+  <div class="formContainer">
+
+    <div class="formDiv">
+      <p class="text-center mb-5">Inserisci una nuova TARIFFA</p>
+      <div class="row mb-2">
+        <label class="col-6"> Nome corriere </label>
+        <input class="col-6" #nomeCorriere placeholder="Nome corriere"><br>
+      </div>
+
+      <div class="row mb-2">
+        <label class="col-6" > Nome tariffa </label>
+        <input class="col-6" #nomeTariffa placeholder="Nome tariffa"><br>
+      </div>
+
+      <div class="row mb-2">
+        <label class="col-6" > Peso max </label>
+        <input class="col-6" type="number" #pesoMax placeholder="Peso max"><br>
+      </div>
+
+      <div class="row mb-2">
+        <label class="col-6" > Costo </label>
+        <input class="col-6" type="number" #costo placeholder="Costo"><br>
+      </div>
+
+
+      <p class="text-center mt-5">
+        <button class="justify-content-center" type="button" (click)="addNewRate(
+          nomeCorriere.value,
+          nomeTariffa.value,
+          pesoMax.valueAsNumber,
+          costo.valueAsNumber)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          save
+        </button>
+      </p>
+
+
+    </div>
+
+  </div>
+
+<!--   <label > Nome corriere </label>
   <input #nomeCorriere placeholder="Nome corriere"><br>
   <label > Nome tariffa </label>
   <input #nomeTariffa placeholder="Nome tariffa"><br>
@@ -45,7 +85,7 @@
     pesoMax.valueAsNumber,
     costo.valueAsNumber)" data-bs-toggle="modal" data-bs-target="#exampleModal">
     save
-  </button>
+  </button> -->
 
 
 
