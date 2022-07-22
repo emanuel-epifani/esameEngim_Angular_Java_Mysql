@@ -1,6 +1,6 @@
 .container {
-  margin-top: 100px;
-  margin-bottom: 100px;
+  padding-top: 100px;
+  padding-bottom: 100px;
   }
 
 .form{
@@ -8,6 +8,11 @@
   justify-content: center;
 }
 
+// .body {
+//   // background: url("./fe_angular_esameFinale/src/assets/images/Flare.jpg");
+//   background: url("../../../assets/images/Flare.jpg");
+//   min-height: 100vh;
+// }
 
 
 
@@ -20,9 +25,14 @@
   padding: 50px;
   border: 1px solid black;
   border-radius: 7px;
+  background-color: white;
 }
 
 .rowInput {
   display: flex;
   justify-content:end;
+}
+
+td {
+background-color: white;
 }

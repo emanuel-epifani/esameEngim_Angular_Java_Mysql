@@ -1,33 +1,35 @@
+<div class="body">
+
+  <div class="container">
+    <p class="text-center" >Elenco ARTICOLI</p>
+
+    <table class="table table-bordered table-hover">
+      <!-- HEAD -->
+      <thead class="table-light">
+        <tr><!-- riga -->
+          <th scope="col">id</th><!-- celle header -->
+          <th scope="col">codice</th>
+          <th scope="col">descrizione</th>
+          <th scope="col">peso</th>
+        </tr>
+      </thead>
 
 
-<div class="container">
-  <p class="text-center" >Elenco ARTICOLI</p>
+      <!-- BODY -->
+      <tbody>
+        <tr *ngFor="let item of articles" >
+          <td>{{item.id}}</td>
+          <td>{{item.codice}}</td>
+          <td>{{item.descrizione}}</td>
+          <td>{{item.peso}}</td>
+       </tr>
 
-  <table class="table table-bordered table-hover">
-    <!-- HEAD -->
-    <thead class="table-light">
-      <tr><!-- riga -->
-        <th scope="col">id</th><!-- celle header -->
-        <th scope="col">codice</th>
-        <th scope="col">descrizione</th>
-        <th scope="col">peso</th>
-      </tr>
-    </thead>
-
-
-    <!-- BODY -->
-    <tbody>
-      <tr *ngFor="let item of articles" >
-        <td>{{item.id}}</td>
-        <td>{{item.codice}}</td>
-        <td>{{item.descrizione}}</td>
-        <td>{{item.peso}}</td>
-     </tr>
-
-    </tbody>
-  </table>
+      </tbody>
+    </table>
 
 
 
+
+  </div>
 
 </div>
